@@ -1,0 +1,14 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "moment": "2.19.1",
+    "fullcalendar": "v3.6.1",
+    "angular-fullcalendar": "1.0.0",
+    "angular-ui-calendar": "v0.8.0"
+  },
+  "resolutions": {
+    "jquery": ">=1.6",
+    "fullcalendar": "v3.6.1"
+  }
+}
