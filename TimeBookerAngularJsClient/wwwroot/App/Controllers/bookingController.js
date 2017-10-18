@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('bookingController', ['$scope', '$compile', 'bookingService', function ($scope, $compile , bookingService) {
+app.controller('bookingController', ['$scope', '$compile', 'uiCalendarConfig', 'bookingService', function ($scope, $compile, uiCalendarConfig , bookingService) {
 
     var date = new Date();
     var d = date.getDate();
@@ -19,18 +19,6 @@ app.controller('bookingController', ['$scope', '$compile', 'bookingService', fun
         }
     });
     
-
-    /**
-     * calendarDemoApp - 0.9.0
-     */
-
-        //$scope.changeTo = 'Hungarian';
-        ///* event source that pulls from google.com */
-        //$scope.eventSource = {
-        //    url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-        //    className: 'gcal-event',           // an option!
-        //    currentTimezone: 'America/Chicago' // an option!
-        //};
         /* event source that contains custom events on the scope */
         $scope.events = [];
         /* event source that calls a function on every view switch */
@@ -42,15 +30,15 @@ app.controller('bookingController', ['$scope', '$compile', 'bookingService', fun
             callback(events);
         };
 
-        $scope.calEventsExt = {
-            color: '#f00',
-            textColor: 'yellow',
-            events: [
-                { type: 'party', title: 'Lunch', start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 0), allDay: false },
-                { type: 'party', title: 'Lunch 2', start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 0), allDay: false },
-                { type: 'party', title: 'Click for Google', start: new Date(y, m, 28), end: new Date(y, m, 29), url: 'http://google.com/' }
-            ]
-        };
+        //$scope.calEventsExt = {
+        //    color: '#f00',
+        //    textColor: 'yellow',
+        //    events: [
+        //        { type: 'party', title: 'Lunch', start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 0), allDay: false },
+        //        { type: 'party', title: 'Lunch 2', start: new Date(y, m, d, 12, 0), end: new Date(y, m, d, 14, 0), allDay: false },
+        //        { type: 'party', title: 'Click for Google', start: new Date(y, m, 28), end: new Date(y, m, 29), url: 'http://google.com/' }
+        //    ]
+        //};
         /* alert on eventClick */
         $scope.alertOnEventClick = function (date, jsEvent, view) {
             $scope.alertMessage = (date.title + ' was clicked ');
@@ -76,15 +64,7 @@ app.controller('bookingController', ['$scope', '$compile', 'bookingService', fun
                 sources.push(source);
             }
         };
-        /* add custom event*/
-        $scope.addEvent = function () {
-            $scope.events.push({
-                title: 'Open Sesame',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                className: ['openSesame']
-            });
-        };
+      
         /* remove event */
         $scope.remove = function (index) {
             $scope.events.splice(index, 1);
@@ -110,12 +90,14 @@ app.controller('bookingController', ['$scope', '$compile', 'bookingService', fun
         /* config object */
         $scope.uiConfig = {
             calendar: {
+                weekNumbers: true,
+                firstDay:1,
                 height: 450,
                 editable: true,
                 header: {
                     left: 'title',
                     center: '',
-                    right: 'today prev,next'
+                    right: ''
                 },
                 eventClick: $scope.alertOnEventClick,
                 eventDrop: $scope.alertOnDrop,

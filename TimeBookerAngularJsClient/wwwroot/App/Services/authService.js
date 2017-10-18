@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+app.factory('authService', ['$http', '$q', '$location', 'localStorageService', function ($http, $q, $location, localStorageService) {
 
     var serviceBase = 'http://localhost:57904/';
     var authServiceFactory = {};
@@ -49,7 +49,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
         _authentication.isAuth = false;
         _authentication.userName = "";
-
+        $location.path('/login');
     };
 
     var _fillAuthData = function () {
