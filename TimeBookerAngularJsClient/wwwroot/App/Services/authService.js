@@ -19,6 +19,18 @@ app.factory('authService', ['$http', '$q', '$location', 'localStorageService', f
 
     };
 
+    var _addBooking = function (bookingData) {
+ 
+        var deferred = $q.defer();
+       
+        $http.post(serviceBase + 'api/Booking', JSON.stringify(bookingData), { headers: { 'Content-Type': 'application/json' } }).success(function (response) {
+            deferred.resolve(response);
+        }).error(function (err, status) {
+            deferred.reject(err);
+
+        });
+    };
+
     var _login = function (loginData) {
 
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
@@ -58,15 +70,17 @@ app.factory('authService', ['$http', '$q', '$location', 'localStorageService', f
         if (authData) {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
-        }
+        };
 
-    }
+    };
 
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
+    authServiceFactory.addBooking = _addBooking;
 
     return authServiceFactory;
+
 }]);

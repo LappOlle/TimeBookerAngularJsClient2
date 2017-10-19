@@ -5,7 +5,8 @@
     "moment": "2.19.1",
     "fullcalendar": "v3.6.1",
     "angular-fullcalendar": "1.0.0",
-    "angular-ui-calendar": "v0.8.0"
+    "angular-ui-calendar": "v0.8.0",
+    "bootstrap": "v3.3.7"
   },
   "resolutions": {
     "jquery": ">=1.6",
