@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.factory('authService', ['$http', '$q', '$location', 'localStorageService', function ($http, $q, $location, localStorageService) {
 
-    var serviceBase = 'http://localhost:57904/';
+    var serviceBase = 'http://tangjaiapi.azurewebsites.net/';
     var authServiceFactory = {};
 
     var _authentication = {

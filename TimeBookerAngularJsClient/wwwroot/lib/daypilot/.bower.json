@@ -1,0 +1,25 @@
+{
+  "name": "daypilot",
+  "description": "",
+  "main": "daypilot-all.min.js",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "https://github.com/WebStyle/daypilot",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "b2baa12b61",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "b2baa12b6190737f38cd1d9f7bdcccc398451a66"
+  },
+  "_source": "https://github.com/WebStyle/daypilot.git",
+  "_target": "*",
+  "_originalSource": "daypilot",
+  "_direct": true
+}

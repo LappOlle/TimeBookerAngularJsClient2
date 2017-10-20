@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('bookingController', ['$scope', '$compile', 'uiCalendarConfig', 'bookingService', 'authService', function ($scope, $compile, uiCalendarConfig, bookingService, authService) {
+app.controller('bookingController', ['$scope', '$compile', 'bookingService', 'authService', function ($scope, $compile, bookingService, authService) {
 
     $scope.bookingData = {
         title: "",

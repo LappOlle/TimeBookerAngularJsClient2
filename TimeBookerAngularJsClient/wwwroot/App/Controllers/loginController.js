@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
+app.controller('loginController', ['$scope','$rootScope', '$location', 'authService', function ($scope,$rootScope, $location, authService) {
 
     $scope.loginData = {
         userName: "",
@@ -11,7 +11,8 @@ app.controller('loginController', ['$scope', '$location', 'authService', functio
     $scope.login = function () {
 
         authService.login($scope.loginData).then(function (response) {
-
+            $rootScope.loggedIn = true;
+            $rootScope.userName = authService.authentication.userName;
             $location.path('/booking');
 
         },

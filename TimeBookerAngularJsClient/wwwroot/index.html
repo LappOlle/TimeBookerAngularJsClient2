@@ -2,10 +2,9 @@
 <html data-ng-app="AngularAuthApp">
 <head>
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
-    <title>AngularJS Authentication</title>
+    <title>AngularJS Tangjai</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css" rel="stylesheet" />
-    <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <body>
@@ -19,11 +18,11 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome {{authentication.userName}}</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/booking">Bookings</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
+                    <li data-ng-hide="!loggedIn"><a href="#">Welcome {{userName}}</a></li>
+                    <li data-ng-hide="!loggedIn"><a href="#/booking">Bookings</a></li>
+                    <li data-ng-hide="!loggedIn"><a href="" data-ng-click="logOut()">Logout</a></li>
+                    <li data-ng-hide="loggedIn"> <a href="#/login">Login</a></li>
+                    <li data-ng-hide="loggedIn"> <a href="#/signup">Sign Up</a></li>
                 </ul>
             </div>
         </div>
@@ -58,9 +57,6 @@
     <script type="text/javascript" src="lib/jquery-ui/ui/jquery-ui.js"></script>
     <script type="text/javascript" src="lib/angular/angular.js"></script>
     <script type="text/javascript" src="lib/moment/moment.js"></script>
-    <script type="text/javascript" src="lib/angular-ui-calendar/src/calendar.js"></script>
-    <script type="text/javascript" src="lib/fullcalendar/dist/fullcalendar.js"></script>
-    <script type="text/javascript" src="lib/fullcalendar/dist/gcal.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.7.1/angular-local-storage.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
