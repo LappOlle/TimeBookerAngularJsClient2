@@ -1,19 +1,55 @@
 ﻿'use strict';
-app.controller('bookingController', ['$scope', '$compile', 'bookingService', 'authService', function ($scope, $compile, bookingService, authService) {
+app.controller('bookingController', ['$scope','$timeout', '$compile', 'bookingService', 'authService', function ($scope,$timeout, $compile, bookingService, authService) {
 
-    $scope.bookingData = {
-        title: "",
-        details: "",
-        location: "",
-        from: "",
-        to: ""
+    var dp = $scope.week;
+    $scope.events = [];
+
+    $scope.weekConfig = {
+        viewType: "Week",
+        weekStarts: 1,
+        dayBeginsHour: 8,
+        dayEndsHour: 17,
+        timeFormat : 'Clock24Hours',
+        timeHeaderCellDuration: 30,
+        hourWidth : 60,
+        headerDateFormat : "dd-MM-yyyy",
+        roundedCorners : true,
+        cellHeight: 40,
     };
 
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-    var currentView = "month";
+    
+
+    loadEvents();
+    
+    function loadEvents() {
+        // using $timeout to make sure all changes are applied before reading visibleStart() and visibleEnd()
+        $timeout(function() {
+            var params = {
+                start: $scope.week.visibleStart().toString(),
+                end: $scope.week.visibleEnd().toString()
+            }
+            bookingService.getBookings().then(function (results) {
+                        var tempColor = "";
+                        var tempText = "";
+                        var dataArray = results.data;
+                        for (var i = 0; i < dataArray.length; i++) {
+                            if(dataArray[i].id == null)
+                            {
+                                tempColor = "#E53935";
+                                tempText = "Reserved"
+                            }
+                            else
+                            {
+                                tempColor = "#009688";
+                                tempText = dataArray[i].userName;
+                            }
+                            $scope.events[i] = { id: dataArray[i].id, text: tempText, 
+                                start: dataArray[i].from, end: dataArray[i].to,
+                                 resource:dataArray[i].details, backColor : tempColor};
+                        }
+                    });            
+        });
+      }
 
     $scope.send = function () {
 
@@ -26,16 +62,5 @@ app.controller('bookingController', ['$scope', '$compile', 'bookingService', 'au
                 $scope.message = err.error_description;
             });
     };
-
-    //This will call onLoad and you can assign the values the way you want to the calendar
-    //here DataRetriever.jsp will give me array of JSON data generated from the database data
-    $scope.eventSource = [];
-    bookingService.getBookings().then(function (results) {
-
-        var dataArray = results.data;
-        for (var i = 0; i < dataArray.length; i++) {
-            $scope.events[i] = { id: dataArray[i].title, title: dataArray[i].userName, start: new Date(dataArray[i].from), end: new Date(dataArray[i].to), allDay: false };
-        }
-    });
 
 }]);
