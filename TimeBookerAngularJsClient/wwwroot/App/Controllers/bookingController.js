@@ -1,5 +1,14 @@
 ﻿'use strict';
-app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'authService', function ($scope, $timeout, bookingService, authService) {
+app.controller('bookingController', ['$scope', '$timeout', 'bookingService', function ($scope, $timeout, bookingService) {
+
+    $scope.bookingData = {
+        id:"",
+        title:"",
+        details:"",
+        location:"",
+        from:"",
+        to:""
+    }
 
     $scope.events = [];
     loadEvents();
@@ -52,10 +61,8 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'au
 
     $scope.send = function () {
 
-        authService.addBooking($scope.bookingData).then(function (response) {
-
-           //reload booking events.
-
+        bookingService.addBooking($scope.bookingData).then(function (response) {
+            $('#bookingModal').modal('hide');
         },
             function (err) {
                 $scope.message = err.error_description;
@@ -63,20 +70,13 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'au
     };
 
     $scope.weekConfig.onTimeRangeSelected = function (args) {
-        var modal = new DayPilot.Modal({
-            top: 150,
-            width: 300,
-            opacity: 70,
-            border: "10px solid #d0d0d0",
-            onClosed: function (args) {
-                if (args.result) {  // args.result is empty when modal is closed without submitting
-                loadEvents();
-                $scope.dp.clearSelection();
-                 }
-            }
-        });
+        $scope.bookingData.from = args.start;
+        $scope.bookingData.to = args.end;
 
-        modal.showUrl("App/Views/newBooking.html");
+        //I had to put this delay for give the script time to load the start and end datetime.
+        $timeout(function (){
+        $('#bookingModal').modal('toggle');
+        });
     };
 
     $scope.weekConfig.onEventClicked = function (args) {
@@ -95,5 +95,19 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'au
         modal.showHtml("");
     };
 
+    $('#bookingModal').on('hidden.bs.modal', function(){
+        loadEvents();
+        ClearBookingData();
+        $scope.dp.clearSelection();
+    });
+
+    function ClearBookingData(){
+        $scope.bookingData.id = "";
+        $scope.bookingData.title= "";
+        $scope.bookingData.details = "";
+        $scope.bookingData.location = "";
+        $scope.bookingData.from = "";
+        $scope.bookingData.to = "";
+    }
 
 }]);
