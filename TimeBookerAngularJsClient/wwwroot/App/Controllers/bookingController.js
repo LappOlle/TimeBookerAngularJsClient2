@@ -39,11 +39,11 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'au
                 var dataArray = results.data;
                 for(var i = 0; i < dataArray.length; i++) {
                     if (dataArray[i].id === null) {
-                        tempColor = "#E53935";
+                        tempColor = "#c22700";
                         tempText = "Reserved";
                     }
                     else {
-                        tempColor = "#009688";
+                        tempColor = "#a2c200";
                         tempText = dataArray[i].userName;
                     }
                     $scope.events[i] = {

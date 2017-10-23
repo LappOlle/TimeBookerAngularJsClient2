@@ -9,6 +9,8 @@
 {
 }
 
+
+
 .calendar_green_cornerright_inner 
 {
 	position: absolute;
@@ -37,9 +39,9 @@
 
 .calendar_green_rowheader_inner 
 {
-	font-size: 16pt;
+	font-size: 10pt;
 	
-	text-align: right; 
+	text-align: left; 
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -47,7 +49,6 @@
 	right: 0px;
 	border-right: 1px solid #999;
 	border-bottom: 1px solid #999;
-	
 	color: #ffffff;
 	background: #666;
 	background: -moz-linear-gradient(
@@ -327,4 +328,29 @@
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+}
+
+.calendar_default_corner_inner
+{
+	position: absolute;
+	top: 0px!;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	border-bottom: 1px solid #999;
+	color: #ffffff;
+	background: #666!important;
+	background: -moz-linear-gradient(
+		top,
+		#777 0%,
+		#666)!important;
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#777),
+		to(#666))!important;
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr="#777777", endColorStr="#666666");
+	text-shadow:
+		0px -1px 1px rgba(000,000,000,0.2),
+		0px 1px 0px rgba(255,255,255,0.3)!important;
+		z-index: 2147483647;
 }
