@@ -1,0 +1,9 @@
+    <form role="form">
+        <h2 class="form-login-heading">Add booking</h2>
+        <input type="text" class="form-control" data-ng-model="bookingData.title" required autofocus>
+        <input type="text" class="form-control" data-ng-model="bookingData.details">
+        <input type="text" class="form-control" data-ng-model="bookingData.location">
+        <input type="datetime-local" class="form-control" data-ng-model="bookingData.from" required>
+        <input type="datetime-local" class="form-control" data-ng-model="bookingData.to" required>
+        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="send()">Save</button>
+    </form>
