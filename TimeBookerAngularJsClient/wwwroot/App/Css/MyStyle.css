@@ -2,3 +2,8 @@ body {
     background-image: url("../Assets/datetimeBG.jpg");
     background-size: cover;
 }
+
+.header-jumbotron {
+    background: rgba(197, 195, 184, 0.7);
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}

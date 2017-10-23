@@ -1,14 +1,8 @@
 ﻿'use strict';
 app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'authService', function ($scope, $timeout, bookingService, authService) {
 
-    $scope.events = [
-        {
-            start: new DayPilot.Date("2017-10-23T10:00:00"),
-            end: new DayPilot.Date("2017-10-23T10:30:00"),
-            id: DayPilot.guid(),
-            text: "First Event"
-        }
-    ];
+    $scope.events = [];
+    loadEvents();
 
     $scope.weekConfig = {
         viewType: "Week",
@@ -24,7 +18,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'au
         theme: "calendar_green"
     };
 
-    loadEvents();
+
 
     function loadEvents() {
         // using $timeout to make sure all changes are applied before reading visibleStart() and visibleEnd()

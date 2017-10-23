@@ -39,8 +39,7 @@
 
 .calendar_green_rowheader_inner 
 {
-	font-size: 10pt;
-	
+	font-size: 8pt;
 	text-align: left; 
 	position: absolute;
 	top: 0px;
@@ -135,9 +134,9 @@
 	left: 0px;
 	bottom: 0px;
 	right: 0px;
-	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	background-color: #ffffff;
+	border-right: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	background-color: rgb(244, 247, 240);
 }
 
 .calendar_green_alldayheader_inner 

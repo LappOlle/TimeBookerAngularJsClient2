@@ -20570,7 +20570,7 @@ if (typeof DayPilotScheduler === 'undefined') {
         this.multiMoveVerticalMode = "Disabled";
         this.moveBy = 'Full';
         this.notifyCommit = 'Immediate';
-        this.numberFormat = "0.00";
+        this.numberFormat = "00.00";
         this.progressiveRowRendering = true;
         this.progressiveRowRenderingPreload = 25;
         this.tapAndHoldTimeout = 300;
