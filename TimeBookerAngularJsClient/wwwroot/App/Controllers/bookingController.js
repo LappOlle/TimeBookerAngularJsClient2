@@ -1,8 +1,14 @@
 ﻿'use strict';
-app.controller('bookingController', ['$scope', '$timeout', '$compile', 'bookingService', 'authService', function ($scope, $timeout, $compile, bookingService, authService) {
+app.controller('bookingController', ['$scope', '$timeout', 'bookingService', 'authService', function ($scope, $timeout, bookingService, authService) {
 
-    var dp = $scope.week;
-    $scope.events = [];
+    $scope.events = [
+        {
+            start: new DayPilot.Date("2017-10-23T10:00:00"),
+            end: new DayPilot.Date("2017-10-23T10:30:00"),
+            id: DayPilot.guid(),
+            text: "First Event"
+        }
+    ];
 
     $scope.weekConfig = {
         viewType: "Week",
@@ -24,14 +30,14 @@ app.controller('bookingController', ['$scope', '$timeout', '$compile', 'bookingS
         // using $timeout to make sure all changes are applied before reading visibleStart() and visibleEnd()
         $timeout(function () {
             var params = {
-                start: $scope.week.visibleStart().toString(),
-                end: $scope.week.visibleEnd().toString()
-            }
+                start: $scope.dp.visibleStart().toString(),
+                end: $scope.dp.visibleEnd().toString()
+            };
             bookingService.getBookings().then(function (results) {
                 var tempColor = "";
                 var tempText = "";
                 var dataArray = results.data;
-                for (var i = 0; i < dataArray.length; i++) {
+                for(var i = 0; i < dataArray.length; i++) {
                     if (dataArray[i].id === null) {
                         tempColor = "#E53935";
                         tempText = "Reserved";
@@ -54,7 +60,7 @@ app.controller('bookingController', ['$scope', '$timeout', '$compile', 'bookingS
 
         authService.addBooking($scope.bookingData).then(function (response) {
 
-            $location.path('/booking');
+           //reload booking events.
 
         },
             function (err) {
@@ -69,10 +75,10 @@ app.controller('bookingController', ['$scope', '$timeout', '$compile', 'bookingS
             opacity: 70,
             border: "10px solid #d0d0d0",
             onClosed: function (args) {
-                // if (args === null) {  // args.result is empty when modal is closed without submitting
+                if (args.result) {  // args.result is empty when modal is closed without submitting
                 loadEvents();
-                $scope.week.clearSelection();
-                // }
+                $scope.dp.clearSelection();
+                 }
             }
         });
 

@@ -1,4 +1,4 @@
-﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar','daypilot']);
+﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'daypilot']);
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
@@ -26,7 +26,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/App/Views/booking.html"
     });
 
-    $routeProvider.otherwise({ redirectTo: "/home" });
+    $routeProvider.otherwise({redirectTo: "/home" });
 });
 
 app.run(['authService', function (authService) {
