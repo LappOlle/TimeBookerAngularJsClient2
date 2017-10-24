@@ -8,9 +8,8 @@ app.factory('bookingService', ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer();
         $http.delete(serviceBase + 'api/Booking?bookingID=' + bookingID, null, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
             deferred.resolve(response);
-        }).error(function (err) {
+        }),(function (err) {
             deferred.reject(err);
-
         });
         return deferred.promise;
     };
@@ -19,7 +18,7 @@ app.factory('bookingService', ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer();
         $http.post(serviceBase + 'api/Booking', JSON.stringify(bookingData), { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
             deferred.resolve(response);
-        }).error(function (err) {
+        }),(function (err) {
             deferred.reject(err);
 
         });
@@ -27,9 +26,13 @@ app.factory('bookingService', ['$http', '$q', function ($http, $q) {
     };
 
     var _getBookings = function () {
-        return $http.get(serviceBase + 'api/Booking').success(function (results) {
-            return results;
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'api/Booking').then(function (results) {
+            deferred.resolve(results);
+        }),(function(results){
+            deferred.reject(results);
         });
+        return deferred.promise;
     };
 
     var _addBooking = function (bookingData) {

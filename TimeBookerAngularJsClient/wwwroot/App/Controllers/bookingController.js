@@ -1,14 +1,20 @@
 ﻿'use strict';
 app.controller('bookingController', ['$scope', '$timeout', 'bookingService', function ($scope, $timeout, bookingService) {
 
+    //2 variables to toggle what button that should show up in the modal when want to change or add booking
+    $scope.add = true;
+    $scope.change = true;
+    $scope.modalHeader = "";
+
     $scope.bookingData = {
-        id:"",
-        title:"",
-        details:"",
-        location:"",
-        from:"",
-        to:""
-    }
+        id: "",
+        title: "",
+        details: "",
+        location: "",
+        from: "",
+        to: "",
+        userName: ""
+    };
 
     $scope.events = [];
     loadEvents();
@@ -40,7 +46,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
                 var tempColor = "";
                 var tempText = "";
                 var dataArray = results.data;
-                for(var i = 0; i < dataArray.length; i++) {
+                for (var i = 0; i < dataArray.length; i++) {
                     if (dataArray[i].id === null) {
                         tempColor = "#c22700";
                         tempText = "Reserved";
@@ -52,61 +58,86 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
                     $scope.events[i] = {
                         id: dataArray[i].id, text: tempText,
                         start: dataArray[i].from, end: dataArray[i].to,
-                        resource: dataArray[i].details, backColor: tempColor
+                        resource: dataArray[i].title, tag: dataArray[i].details, dataItem: dataArray[i].location, backColor: tempColor
                     };
                 }
+            }, function (error) {
+                prompt(error.error_description);
             });
         });
     }
 
-    $scope.send = function () {
-
+    $scope.addBooking = function () {
         bookingService.addBooking($scope.bookingData).then(function (response) {
             $('#bookingModal').modal('hide');
-        }),(function (err) {
-                $scope.message = err.error_description;
-            });
+        }), (function (err) {
+            $scope.message = err.error_description;
+        });
     };
 
+    $scope.deleteBooking = function () {
+        var confirmMessage = confirm("Press Ok if you really want to delete it.");
+        if (confirmMessage === true) {
+            bookingService.deleteBooking($scope.bookingData.id).then(function (response) {
+                $('#bookingModal').modal('hide');
+            }), (function (err) {
+                $scope.message = err.error_description;
+            })
+        }
+    }
+
     $scope.weekConfig.onTimeRangeSelected = function (args) {
+        $scope.modalHeader = "Add Booking";
+        $scope.add = true;
+        $scope.change = false;
         $scope.bookingData.from = args.start;
         $scope.bookingData.to = args.end;
 
         //I had to put this delay for give the script time to load the start and end datetime.
-        $timeout(function (){
-        $('#bookingModal').modal('toggle');
+        $timeout(function () {
+            $('#bookingModal').modal('toggle');
         });
     };
 
     $scope.weekConfig.onEventClicked = function (args) {
-        var modal = new DayPilot.Modal({
-            top: 150,
-            width: 300,
-            opacity: 70,
-            border: "10px solid #d0d0d0",
-            onClosed: function (args) {
-                if (args.result) {  // args.result is empty when modal is closed without submitting
-                    loadEvents();
-                }
+        args.preventDefault = true;
+        $scope.modalHeader = "Change Booking";
+        $scope.add = false;
+        $scope.change = true;
+        var events = $scope.events.filter(function (x) { return x.id === args.e.id(); });
+        $timeout(function () {
+            $scope.bookingData.id = events[0].id;
+            $scope.bookingData.title = events[0].resource;
+            $scope.bookingData.details = events[0].tag;
+            $scope.bookingData.location = events[0].dataItem;
+            $scope.bookingData.from = events[0].start;
+            $scope.bookingData.to = events[0].end;
+            $scope.bookingData.userName = events[0].text;
+
+            if ($scope.bookingData.id === "" || $scope.bookingData.id === null) {
+                alert("You are not allowed to change others booking.");
+                ClearBookingData();
+            }
+            else {
+                $('#bookingModal').modal('toggle');
             }
         });
-
-        modal.showHtml("");
     };
 
-    $('#bookingModal').on('hidden.bs.modal', function(){
-        loadEvents();
+    $('#bookingModal').on('hidden.bs.modal', function () {
         ClearBookingData();
         $scope.dp.clearSelection();
+        loadEvents();
     });
 
-    function ClearBookingData(){
+    function ClearBookingData() {
         $scope.bookingData.id = "";
-        $scope.bookingData.title= "";
+        $scope.bookingData.title = "";
         $scope.bookingData.details = "";
         $scope.bookingData.location = "";
         $scope.bookingData.from = "";
         $scope.bookingData.to = "";
+        $scope.bookingData.userName = "";
     }
 
 }]);
