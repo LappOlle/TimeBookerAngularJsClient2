@@ -63,8 +63,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
 
         bookingService.addBooking($scope.bookingData).then(function (response) {
             $('#bookingModal').modal('hide');
-        },
-            function (err) {
+        }),(function (err) {
                 $scope.message = err.error_description;
             });
     };
