@@ -8,7 +8,7 @@ app.factory('bookingService', ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer();
         $http.delete(serviceBase + 'api/Booking?bookingID=' + bookingID, null, { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
             deferred.resolve(response);
-        }),(function (err) {
+        }), (function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
@@ -16,11 +16,10 @@ app.factory('bookingService', ['$http', '$q', function ($http, $q) {
 
     var _changeBooking = function (bookingData) {
         var deferred = $q.defer();
-        $http.post(serviceBase + 'api/Booking', JSON.stringify(bookingData), { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
+        $http.put(serviceBase + 'api/Booking', JSON.stringify(bookingData), { headers: { 'Content-Type': 'application/json' } }).then(function (response) {
             deferred.resolve(response);
-        }),(function (err) {
+        }), (function (err) {
             deferred.reject(err);
-
         });
         return deferred.promise;
     };
@@ -29,7 +28,7 @@ app.factory('bookingService', ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer();
         $http.get(serviceBase + 'api/Booking').then(function (results) {
             deferred.resolve(results);
-        }),(function(results){
+        }), (function (results) {
             deferred.reject(results);
         });
         return deferred.promise;
@@ -39,7 +38,7 @@ app.factory('bookingService', ['$http', '$q', function ($http, $q) {
         var deferred = $q.defer();
         $http.post(serviceBase + 'api/Booking', JSON.stringify(bookingData), { headers: { 'Content-Type': 'application/json' } }).then(function (success) {
             deferred.resolve(success);
-        }),(function (errorMess) {
+        }), (function (errorMess) {
             deferred.reject(errorMess);
         });
         return deferred.promise;

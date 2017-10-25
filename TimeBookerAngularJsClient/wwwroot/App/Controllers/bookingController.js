@@ -33,8 +33,6 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         theme: "calendar_green"
     };
 
-
-
     function loadEvents() {
         // using $timeout to make sure all changes are applied before reading visibleStart() and visibleEnd()
         $timeout(function () {
@@ -75,6 +73,14 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         });
     };
 
+    $scope.changeBooking = function () {
+        bookingService.changeBooking($scope.bookingData).then(function (response) {
+            $('#bookingModal').modal('hide');
+        }), (function (err) {
+            $scope.message = err.error_description;
+        });
+    };
+
     $scope.deleteBooking = function () {
         var confirmMessage = confirm("Press Ok if you really want to delete it.");
         if (confirmMessage === true) {
@@ -98,6 +104,17 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
             $('#bookingModal').modal('toggle');
         });
     };
+
+    $scope.weekConfig.onEventMove = function (args) {
+        if (args.e.id() === "" || args.e.id() === null) {
+          args.preventDefault();
+          alert("You are not allowed to change others booking.");
+        }
+      };
+
+      $scope.weekConfig.onEventMoved = function(args){
+          debugger;
+      }
 
     $scope.weekConfig.onEventClicked = function (args) {
         args.preventDefault = true;
@@ -124,9 +141,10 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         });
     };
 
-    $('#bookingModal').on('hidden.bs.modal', function () {
-        ClearBookingData();
+    $('#bookingModal').on('hidden.bs.modal', function (e) {
         $scope.dp.clearSelection();
+        ClearBookingData();
+        $scope.events = [];
         loadEvents();
     });
 
