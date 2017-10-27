@@ -16,6 +16,20 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         userName: ""
     };
 
+    $scope.navigatorConfig ={
+        selectMode : 'week',
+        weekStarts : 1, 
+        showMonths : 1, 
+        showWeekNumbers :true,
+        width : 1000,
+        theme:"green_navigator_theme",
+        onTimeRangeSelected: function(args) {
+            $scope.weekConfig.startDate = args.day;
+            $scope.events = [];                          
+            loadEvents();
+        }
+    }
+
     $scope.events = [];
     loadEvents();
 

@@ -11,7 +11,3 @@ body {
 .navbar {
     z-index: 2;
 }
-
-#myDateTimePicker {
-    z-index: 99999!important;
-}

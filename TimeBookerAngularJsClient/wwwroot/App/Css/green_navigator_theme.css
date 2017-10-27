@@ -1,0 +1,69 @@
+.green_navigator_theme_main { 
+    border-left: 1px solid #999999;
+    border-right: 1px solid #999999;
+    border-bottom: 1px solid #999999; 
+    font-family: Tahoma, Arial, Helvetica, sans-serif; 
+    font-size: 12px; 
+}
+
+.green_navigator_theme_month {
+
+}
+
+.green_navigator_theme_main *, .green_navigator_theme_main *:before, .green_navigator_theme_main *:after { 
+    box-sizing: border-box; 
+}
+
+.green_navigator_theme_line { 
+    border-bottom: 1px solid #999999; 
+}
+
+/* month header */ 
+.green_navigator_theme_title, .green_navigator_theme_titleleft, .green_navigator_theme_titleright { 
+	border-top: 1px solid #999999;
+	color: #ffffff;
+	background: #666666;
+	
+}
+.green_navigator_theme_title { text-align: center; }
+.green_navigator_theme_titleleft, .green_navigator_theme_titleright { text-align: center; }
+
+/* day headers */
+.green_navigator_theme_dayheader { 
+	color: #ffffff;
+	background: #a8dc18;
+	
+	padding: 0px;
+	text-align: center;
+}
+
+/* day cells */
+.green_navigator_theme_cell { 
+	color: #ffffff;
+	background: #a8dc18;
+	
+	text-align: center;
+}
+.green_navigator_theme_cell_text {
+	padding: 0px;
+}
+
+.green_navigator_theme_weeknumber { 
+	color: #ffffff;
+	background: #666666;
+	
+	text-align: center;
+	padding: 0px;
+}
+.green_navigator_theme_weekend { 
+	color: #ffffff;
+	background: #a8dc18;
+	
+	text-align: center;
+	padding: 0px;
+}
+.green_navigator_theme_dayother { color: gray; }
+.green_navigator_theme_todaybox { border: 1px solid red; }
+.green_navigator_theme_busy { font-weight: bold; }
+
+.green_navigator_theme_select .green_navigator_theme_cell_box { background-color: #ffe794; opacity: 0.5; }
