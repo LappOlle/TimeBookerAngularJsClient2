@@ -60,7 +60,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
                     };
                 }
             }, function (error) {
-                prompt(error.error_description);
+                $scope.message = error.error_description;
             });
         });
     }
@@ -88,9 +88,9 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
                 $('#bookingModal').modal('hide');
             }), (function (err) {
                 $scope.message = err.error_description;
-            })
+            });
         }
-    }
+    };
 
     $scope.weekConfig.onTimeRangeSelected = function (args) {
         $scope.modalHeader = "Add Booking";
@@ -107,20 +107,43 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
 
     $scope.weekConfig.onEventMove = function (args) {
         if (args.e.id() === "" || args.e.id() === null) {
-          args.preventDefault();
           alert("You are not allowed to change others booking.");
+          args.preventDefault();
+        }
+        else if(CanAddBooking(args.newStart,args.newEnd))
+        {
+            var events = $scope.events.filter(function (x) { return x.id === args.e.id(); });
+                $scope.bookingData.id = events[0].id;
+                $scope.bookingData.title = events[0].resource;
+                $scope.bookingData.details = events[0].tag;
+                $scope.bookingData.location = events[0].dataItem;
+                $scope.bookingData.from = args.newStart;
+                $scope.bookingData.to = args.newEnd;
+                $scope.bookingData.userName = events[0].text;
+        }
+        else
+        {
+            alert("There is already an booking in that intervall. Pick an other intervall.");
+            args.preventDefault();
         }
       };
 
       $scope.weekConfig.onEventMoved = function(args){
-          debugger;
-      }
+        if ($scope.bookingData.id === "" || $scope.bookingData.id === null) {
+            ClearBookingData();
+            args.preventDefault();
+        }
+        else {
+            $timeout(function (){
+                $scope.modalHeader = "Change Booking";
+                $scope.add = false;
+                $scope.change = true;
+                $('#bookingModal').modal('toggle');
+            });
+        }
+      };
 
     $scope.weekConfig.onEventClicked = function (args) {
-        args.preventDefault = true;
-        $scope.modalHeader = "Change Booking";
-        $scope.add = false;
-        $scope.change = true;
         var events = $scope.events.filter(function (x) { return x.id === args.e.id(); });
         $timeout(function () {
             $scope.bookingData.id = events[0].id;
@@ -136,10 +159,29 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
                 ClearBookingData();
             }
             else {
+                $scope.modalHeader = "Change Booking";
+                $scope.add = false;
+                $scope.change = true;
                 $('#bookingModal').modal('toggle');
             }
         });
     };
+
+    function CanAddBooking(newStartDate,newEndDate)
+    {
+        for(var i = 0; i < $scope.events.length;i++)
+        {
+            if($scope.events[i].start <= newStartDate && $scope.events[i].end >= newEndDate)
+            {
+                return false;
+            }
+            else if(newStartDate <= $scope.events[i].start && newEndDate >= $scope.events[i].end)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     $('#bookingModal').on('hidden.bs.modal', function (e) {
         $scope.dp.clearSelection();
@@ -157,5 +199,4 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         $scope.bookingData.to = "";
         $scope.bookingData.userName = "";
     }
-
 }]);
