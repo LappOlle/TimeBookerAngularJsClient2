@@ -44,7 +44,8 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         headerDateFormat: "dd-MM-yyyy",
         roundedCorners: true,
         cellHeight: 40,
-        theme: "calendar_green"
+        theme: "calendar_green",
+        eventResizeHandling:"disabled"
     };
 
     function loadEvents() {
@@ -70,7 +71,8 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
                     $scope.events[i] = {
                         id: dataArray[i].id, text: tempText,
                         start: dataArray[i].from, end: dataArray[i].to,
-                        resource: dataArray[i].title, tag: dataArray[i].details, dataItem: dataArray[i].location, backColor: tempColor
+                        resource: dataArray[i].title, tag: dataArray[i].details, dataItem: dataArray[i].location, 
+                        backColor: tempColor
                     };
                 }
             }, function (error) {

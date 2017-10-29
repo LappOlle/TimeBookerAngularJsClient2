@@ -11,3 +11,7 @@ body {
 .navbar {
     z-index: 2;
 }
+
+#dp {
+    bottom:30pt;
+}
