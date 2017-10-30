@@ -82,19 +82,36 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     }
 
     $scope.addBooking = function () {
-        bookingService.addBooking($scope.bookingData).then(function (response) {
-            $('#bookingModal').modal('hide');
-        }), (function (err) {
-            $scope.message = err.error_description;
-        });
+        $timeout(function () {
+            if (CanAddBooking($scope.bookingData.from, $scope.bookingData.to)) {
+                bookingService.addBooking($scope.bookingData).then(function (response) {
+                    $('#bookingModal').modal('hide');
+                }), (function (err) {
+                    $scope.message = err.error_description;
+                });
+            }
+            else {
+                $scope.message = "That intervall is already taken!";
+                args.preventDefault();
+            }
+        })
     };
 
     $scope.changeBooking = function () {
-        bookingService.changeBooking($scope.bookingData).then(function (response) {
-            $('#bookingModal').modal('hide');
-        }), (function (err) {
-            $scope.message = err.error_description;
-        });
+        $timeout(function () {
+            if (CanAddBooking($scope.bookingData.from, $scope.bookingData.to)) {
+                bookingService.changeBooking($scope.bookingData).then(function (response) {
+                    $('#bookingModal').modal('hide');
+                }), (function (err) {
+                    $scope.message = err.error_description;
+                });
+            }
+            else {
+                $scope.message = "That intervall is already taken!";
+                args.preventDefault();
+            }
+        })
+      
     };
 
     $scope.deleteBooking = function () {
@@ -200,6 +217,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     }
 
     $('#bookingModal').on('hidden.bs.modal', function (e) {
+        $scope.message = "";
         $scope.dp.clearSelection();
         ClearBookingData();
         $scope.events = [];

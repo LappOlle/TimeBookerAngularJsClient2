@@ -11,7 +11,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h1 class="modal-title">{{modalHeader}}</h4>
+                        <h1 class="modal-title">{{modalHeader}}</h1>
                     </div>
                     <div class="modal-body">
                         <form role="form">
@@ -23,10 +23,10 @@
                             <input type="text" class="form-control" data-ng-model="bookingData.details">
                             <h4 class="modal-title">Location</h4>
                             <input type="text" class="form-control" data-ng-model="bookingData.location">
-                            <h4 class="modal-title">Date/Time From</h4>
-                            <input type='text' class="form-control" data-ng-model="bookingData.from" required />
-                            <h4 class="modal-title">Date/Time To</h4>
-                            <input type="text" class="form-control" data-ng-model="bookingData.to" required>
+                            <h4 class="modal-title">From</h4>
+                            <input datetime-picker data-ng-model="bookingData.from" date-format="yyyy-MM-dd HH:mm" required />
+                            <h4 class="modal-title">To</h4>
+                            <input datetime-picker data-ng-model="bookingData.to" date-format="yyyy-MM-dd HH:mm" required />
                             <button style="background-color:#a2c200" class="btn btn-lg btn-info btn-block ng-hide" data-ng-hide="change" type="submit"
                                 data-ng-click="addBooking()">Add Booking</button>
                             <button style="background-color:#a2c200" class="btn btn-lg btn-info btn-block ng-hide" data-ng-hide="add" type="submit" data-ng-click="changeBooking()">Save Changes</button>

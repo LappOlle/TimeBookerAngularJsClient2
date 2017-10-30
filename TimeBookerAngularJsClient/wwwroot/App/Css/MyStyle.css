@@ -15,3 +15,9 @@ body {
 #dp {
     bottom:30pt;
 }
+
+.angularjs-datetime-picker {
+    position: relative;
+    z-index:1100;
+}
+

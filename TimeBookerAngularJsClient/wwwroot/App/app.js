@@ -1,4 +1,4 @@
-﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'daypilot']);
+﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'daypilot', 'angularjs-datetime-picker']);
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');

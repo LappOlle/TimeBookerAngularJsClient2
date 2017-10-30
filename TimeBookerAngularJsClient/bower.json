@@ -3,9 +3,11 @@
   "private": true,
   "dependencies": {
     "moment": "2.19.1",
-    "bootstrap": "v3.3.7"
+    "bootstrap": "v3.3.7",
+    "angularjs-datetime-picker": "v0.1.20"
   },
   "resolutions": {
-    "jquery": ">=1.6"
+    "jquery": ">=1.6",
+    "angular": "~1.4.4"
   }
 }
