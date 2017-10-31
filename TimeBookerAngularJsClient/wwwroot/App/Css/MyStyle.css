@@ -4,7 +4,8 @@ body {
 }
 
 .header-jumbotron {
-    background: rgba(176, 221, 13, 0.7);
+    background: slategrey;
+    opacity: 0.7;
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
 
