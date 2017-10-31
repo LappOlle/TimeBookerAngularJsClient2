@@ -4,7 +4,7 @@ body {
 }
 
 .header-jumbotron {
-    background: rgba(197, 195, 184, 0.7);
+    background: rgba(176, 221, 13, 0.7);
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
 
@@ -19,5 +19,25 @@ body {
 .angularjs-datetime-picker {
     position: relative;
     z-index:1100;
+}
+
+.home-page-boxes {
+    background-color: rgba(176, 221, 13, 0.7);
+    margin: 10pt;
+}
+
+.modal-button-green {
+margin-top:10pt;
+background-color:#a2c200;
+
+}
+
+.modal-button-red {
+    margin-top:10pt;
+    background-color:#c22700;
+}
+
+.modal-content {
+    background: slategrey;
 }
 

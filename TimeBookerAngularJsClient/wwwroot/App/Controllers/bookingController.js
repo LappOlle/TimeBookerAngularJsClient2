@@ -1,6 +1,5 @@
 ﻿'use strict';
 app.controller('bookingController', ['$scope', '$timeout', 'bookingService', function ($scope, $timeout, bookingService) {
-
     //2 variables to toggle what button that should show up in the modal when want to change or add booking
     $scope.add = true;
     $scope.change = true;
@@ -16,16 +15,16 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         userName: ""
     };
 
-    $scope.navigatorConfig ={
-        selectMode : 'week',
-        weekStarts : 1, 
-        showMonths : 1, 
-        showWeekNumbers :true,
-        width : 1000,
-        theme:"green_navigator_theme",
-        onTimeRangeSelected: function(args) {
+    $scope.navigatorConfig = {
+        selectMode: 'week',
+        weekStarts: 1,
+        showMonths: 1,
+        showWeekNumbers: true,
+        width: 1000,
+        theme: "green_navigator_theme",
+        onTimeRangeSelected: function (args) {
             $scope.weekConfig.startDate = args.day;
-            $scope.events = [];                          
+            $scope.events = [];
             loadEvents();
         }
     }
@@ -41,11 +40,11 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         timeFormat: 'Clock24Hours',
         timeHeaderCellDuration: 30,
         hourWidth: 60,
-        headerDateFormat: "dd-MM-yyyy",
+        headerDateFormat: "dd-MM",
         roundedCorners: true,
         cellHeight: 40,
         theme: "calendar_green",
-        eventResizeHandling:"disabled"
+        eventResizeHandling: "disabled"
     };
 
     function loadEvents() {
@@ -71,7 +70,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
                     $scope.events[i] = {
                         id: dataArray[i].id, text: tempText,
                         start: dataArray[i].from, end: dataArray[i].to,
-                        resource: dataArray[i].title, tag: dataArray[i].details, dataItem: dataArray[i].location, 
+                        resource: dataArray[i].title, tag: dataArray[i].details, dataItem: dataArray[i].location,
                         backColor: tempColor
                     };
                 }
@@ -82,6 +81,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     }
 
     $scope.addBooking = function () {
+        loadEvents();
         $timeout(function () {
             if (CanAddBooking($scope.bookingData.from, $scope.bookingData.to)) {
                 bookingService.addBooking($scope.bookingData).then(function (response) {
@@ -92,12 +92,12 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
             }
             else {
                 $scope.message = "That intervall is already taken!";
-                args.preventDefault();
             }
-        })
+        },1000);
     };
 
     $scope.changeBooking = function () {
+        loadEvents();
         $timeout(function () {
             if (CanAddBooking($scope.bookingData.from, $scope.bookingData.to)) {
                 bookingService.changeBooking($scope.bookingData).then(function (response) {
@@ -108,10 +108,8 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
             }
             else {
                 $scope.message = "That intervall is already taken!";
-                args.preventDefault();
             }
-        })
-      
+        },1000);
     };
 
     $scope.deleteBooking = function () {
@@ -140,41 +138,31 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
 
     $scope.weekConfig.onEventMove = function (args) {
         if (args.e.id() === "" || args.e.id() === null) {
-          alert("You are not allowed to change others booking.");
-          args.preventDefault();
+            alert("You are not allowed to change others booking.");
+            args.preventDefault();
         }
-        else if(CanAddBooking(args.newStart,args.newEnd))
-        {
+        else if (CanAddBooking(args.newStart, args.newEnd)) {
+            args.preventDefault();
             var events = $scope.events.filter(function (x) { return x.id === args.e.id(); });
-                $scope.bookingData.id = events[0].id;
-                $scope.bookingData.title = events[0].resource;
-                $scope.bookingData.details = events[0].tag;
-                $scope.bookingData.location = events[0].dataItem;
-                $scope.bookingData.from = args.newStart;
-                $scope.bookingData.to = args.newEnd;
-                $scope.bookingData.userName = events[0].text;
-        }
-        else
-        {
-            alert("There is already an booking in that intervall. Pick an other intervall.");
-            args.preventDefault();
-        }
-      };
-
-      $scope.weekConfig.onEventMoved = function(args){
-        if ($scope.bookingData.id === "" || $scope.bookingData.id === null) {
-            ClearBookingData();
-            args.preventDefault();
-        }
-        else {
-            $timeout(function (){
+            $scope.bookingData.id = events[0].id;
+            $scope.bookingData.title = events[0].resource;
+            $scope.bookingData.details = events[0].tag;
+            $scope.bookingData.location = events[0].dataItem;
+            $scope.bookingData.from = args.newStart;
+            $scope.bookingData.to = args.newEnd;
+            $scope.bookingData.userName = events[0].text;
+            $timeout(function () {
                 $scope.modalHeader = "Change Booking";
                 $scope.add = false;
                 $scope.change = true;
                 $('#bookingModal').modal('toggle');
             });
         }
-      };
+        else {
+            alert("There is already an booking in that intervall. Pick an other intervall.");
+            args.preventDefault();
+        }
+    };
 
     $scope.weekConfig.onEventClicked = function (args) {
         var events = $scope.events.filter(function (x) { return x.id === args.e.id(); });
@@ -200,16 +188,12 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         });
     };
 
-    function CanAddBooking(newStartDate,newEndDate)
-    {
-        for(var i = 0; i < $scope.events.length;i++)
-        {
-            if($scope.events[i].start <= newStartDate && $scope.events[i].end >= newEndDate)
-            {
+    function CanAddBooking(newStartDate, newEndDate) {
+        for (var i = 0; i < $scope.events.length; i++) {
+            if ($scope.events[i].start <= newStartDate && $scope.events[i].end >= newEndDate) {
                 return false;
             }
-            else if(newStartDate <= $scope.events[i].start && newEndDate >= $scope.events[i].end)
-            {
+            else if (newStartDate <= $scope.events[i].start && newEndDate >= $scope.events[i].end) {
                 return false;
             }
         }

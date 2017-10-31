@@ -27,15 +27,15 @@
                             <input datetime-picker data-ng-model="bookingData.from" date-format="yyyy-MM-dd HH:mm" required />
                             <h4 class="modal-title">To</h4>
                             <input datetime-picker data-ng-model="bookingData.to" date-format="yyyy-MM-dd HH:mm" required />
-                            <button style="background-color:#a2c200" class="btn btn-lg btn-info btn-block ng-hide" data-ng-hide="change" type="submit"
+                            <button class="btn btn-lg btn-info btn-block modal-button-green ng-hide" data-ng-hide="change" type="submit"
                                 data-ng-click="addBooking()">Add Booking</button>
-                            <button style="background-color:#a2c200" class="btn btn-lg btn-info btn-block ng-hide" data-ng-hide="add" type="submit" data-ng-click="changeBooking()">Save Changes</button>
-                            <button style="background-color:#c22700" class="btn btn-lg btn-info btn-block ng-hide" data-ng-hide="add" type="submit" data-ng-click="deleteBooking()">Delete Booking</button>
+                            <button class="btn btn-lg btn-info btn-block modal-button-green ng-hide" data-ng-hide="add" type="submit" data-ng-click="changeBooking()">Save Changes</button>
+                            <button class="btn btn-lg btn-info btn-block modal-button-red ng-hide" data-ng-hide="add" type="submit" data-ng-click="deleteBooking()">Delete Booking</button>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <label>{{message}}</label>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" style="background-color:#c22700;color:white" class="btn btn-lg btn-info" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
