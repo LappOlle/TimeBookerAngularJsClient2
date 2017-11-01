@@ -24,9 +24,9 @@
                             <h4 class="modal-title">Location</h4>
                             <input type="text" class="form-control" data-ng-model="bookingData.location">
                             <h4 class="modal-title">From</h4>
-                            <input id="datetime-picker1" datetime-picker data-ng-model="bookingData.from" date-format="yyyy-MM-dd HH:mm" required />
+                            <input id="datetime-picker1" data-ng-model="bookingData.from" date-format="yyyy-MM-dd HH:mm" required />
                             <h4 class="modal-title">To</h4>
-                            <input id="datetime-picker2" datetime-picker data-ng-model="bookingData.to" date-format="yyyy-MM-dd HH:mm" required />
+                            <input id="datetime-picker2" data-ng-model="bookingData.to" date-format="yyyy-MM-dd HH:mm" required />
                             <button class="btn btn-lg btn-info btn-block modal-button-green ng-hide" data-ng-hide="change" type="submit"
                                 data-ng-click="addBooking()">Add Booking</button>
                             <button class="btn btn-lg btn-info btn-block modal-button-green ng-hide" data-ng-hide="add" type="submit" data-ng-click="changeBooking()">Save Changes</button>
