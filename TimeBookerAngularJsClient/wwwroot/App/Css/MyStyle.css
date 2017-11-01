@@ -23,8 +23,12 @@ body {
 }
 
 .home-page-boxes {
-    background-color: rgba(176, 221, 13, 0.7);
+    background-color: rgba(250, 250, 250, 0.95);
     margin: 10pt;
+}
+
+.home-page-boxes .btn-info {
+    margin-bottom: 10pt;
 }
 
 .modal-button-green {
