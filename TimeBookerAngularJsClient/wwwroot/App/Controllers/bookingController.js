@@ -15,6 +15,21 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         userName: ""
     };
 
+    var connection = $.hubConnection("http://tangjaiapi.azurewebsites.net/signalr", { useDefaultPath: false });
+    var MyHubProxy = connection.createHubProxy('MyHub');
+    MyHubProxy.on('update', function() {
+        console.log("Update requested from server");
+        loadEvents();
+    });
+    connection.start({withCredentials: false})//Very important to set this to false!
+        .done(function(){ console.log('Now connected, connection ID=' + connection.id); })
+        .fail(function(){ console.log('Could not connect'); });
+
+        // $scope.SayHello = function () {
+        //     // Call SignalR hub method
+        //     MyHubProxy.invoke('update');
+        // };
+
     $scope.navigatorConfig = {
         selectMode: 'week',
         weekStarts: 1,
@@ -48,6 +63,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     };
 
     function loadEvents() {
+        $scope.events = [];
         // using $timeout to make sure all changes are applied before reading visibleStart() and visibleEnd()
         $timeout(function () {
             var params = {
@@ -81,7 +97,6 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     }
 
     $scope.addBooking = function () {
-        loadEvents();
         $timeout(function () {
             if (CanAddBooking($scope.bookingData.from, $scope.bookingData.to)) {
                 bookingService.addBooking($scope.bookingData).then(function (response) {
@@ -93,11 +108,10 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
             else {
                 $scope.message = "That intervall is already taken!";
             }
-        },1000);
+        }, 1000);
     };
 
     $scope.changeBooking = function () {
-        loadEvents();
         $timeout(function () {
             if (CanAddBooking($scope.bookingData.from, $scope.bookingData.to)) {
                 bookingService.changeBooking($scope.bookingData).then(function (response) {
@@ -109,7 +123,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
             else {
                 $scope.message = "That intervall is already taken!";
             }
-        },1000);
+        }, 1000);
     };
 
     $scope.deleteBooking = function () {
@@ -204,8 +218,6 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
         $scope.message = "";
         $scope.dp.clearSelection();
         ClearBookingData();
-        $scope.events = [];
-        loadEvents();
     });
 
     function ClearBookingData() {

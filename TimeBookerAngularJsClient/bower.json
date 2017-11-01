@@ -4,7 +4,8 @@
   "dependencies": {
     "moment": "2.19.1",
     "bootstrap": "v3.3.7",
-    "angularjs-datetime-picker": "v0.1.20"
+    "angularjs-datetime-picker": "v0.1.20",
+    "signalr": "v2.2.2"
   },
   "resolutions": {
     "jquery": ">=1.6",
