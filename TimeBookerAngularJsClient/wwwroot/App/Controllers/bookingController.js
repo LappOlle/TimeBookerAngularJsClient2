@@ -1,5 +1,23 @@
 ﻿'use strict';
 app.controller('bookingController', ['$scope', '$timeout', 'bookingService', function ($scope, $timeout, bookingService) {
+    
+    jQuery.datetimepicker.setLocale('en');
+    jQuery('#datetimepicker1').datetimepicker({
+        allowTimes:[
+            '08:00', '08:30', '09:00', '09:30','10:00',
+            '10:30', '11:30', '12:00', '12:30', '13:00',
+            '13:30','14:00','14:30','15:00','16:00','17:00'
+           ]
+    });
+
+    jQuery('#datetimepicker2').datetimepicker({
+        allowTimes:[
+            '08:00', '08:30', '09:00', '09:30','10:00',
+            '10:30', '11:30', '12:00', '12:30', '13:00',
+            '13:30','14:00','14:30','15:00','16:00','17:00'
+           ]
+    });
+
     //2 variables to toggle what button that should show up in the modal when want to change or add booking
     $scope.add = true;
     $scope.change = true;
