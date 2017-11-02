@@ -1,20 +1,22 @@
 ﻿'use strict';
 app.controller('bookingController', ['$scope', '$timeout', 'bookingService', function ($scope, $timeout, bookingService) {
     
-    jQuery.datetimepicker.setLocale('en');
+    jQuery.datetimepicker.setLocale('se');
     jQuery('#datetimepicker1').datetimepicker({
+        format: 'Y-m-d h:i:s',
         allowTimes:[
             '08:00', '08:30', '09:00', '09:30','10:00',
-            '10:30', '11:30', '12:00', '12:30', '13:00',
-            '13:30','14:00','14:30','15:00','16:00','17:00'
+            '10:30','11:00', '11:30', '12:00', '12:30', '13:00',
+            '13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00'
            ]
     });
 
     jQuery('#datetimepicker2').datetimepicker({
+        format: 'Y-m-d h:i:s',
         allowTimes:[
             '08:00', '08:30', '09:00', '09:30','10:00',
-            '10:30', '11:30', '12:00', '12:30', '13:00',
-            '13:30','14:00','14:30','15:00','16:00','17:00'
+            '10:30','11:00', '11:30', '12:00', '12:30', '13:00',
+            '13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00'
            ]
     });
 
@@ -221,11 +223,15 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     };
 
     function CanAddBooking(newStartDate, newEndDate) {
+        var newStart = DayPilot.Date(newStartDate);
+        var newEnd = DayPilot.Date(newEndDate);
+        console.log(newStart);
+        console.log(newEnd);
         for (var i = 0; i < $scope.events.length; i++) {
-            if ($scope.events[i].start <= newStartDate && $scope.events[i].end >= newEndDate) {
+            if ($scope.events[i].start <= newStart && $scope.events[i].end >= newEnd) {
                 return false;
             }
-            else if (newStartDate <= $scope.events[i].start && newEndDate >= $scope.events[i].end) {
+            else if (newStart <= $scope.events[i].start && newEnd >= $scope.events[i].end) {
                 return false;
             }
         }
