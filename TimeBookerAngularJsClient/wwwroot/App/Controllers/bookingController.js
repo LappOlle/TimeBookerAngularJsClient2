@@ -3,7 +3,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     
     jQuery.datetimepicker.setLocale('se');
     jQuery('#datetimepicker1').datetimepicker({
-        format: 'Y-m-d h:i:s',
+        format: 'Y-m-d H:i:s',
         allowTimes:[
             '08:00', '08:30', '09:00', '09:30','10:00',
             '10:30','11:00', '11:30', '12:00', '12:30', '13:00',
@@ -12,7 +12,7 @@ app.controller('bookingController', ['$scope', '$timeout', 'bookingService', fun
     });
 
     jQuery('#datetimepicker2').datetimepicker({
-        format: 'Y-m-d h:i:s',
+        format: 'Y-m-d H:i:s',
         allowTimes:[
             '08:00', '08:30', '09:00', '09:30','10:00',
             '10:30','11:00', '11:30', '12:00', '12:30', '13:00',
